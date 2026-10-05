@@ -13,7 +13,7 @@ class AuthService:
         # Mock DB
         self._users_db: Dict[str, User] = {}
 
-    def get_config(self) -> dict:
+    def get_config(self) -> Dict[str, Any]:
         """Returns auth settings for the frontend (e.g. to hide password fields)."""
         return {"enforce_sso_only": self.enforce_sso_only}
 
@@ -49,4 +49,4 @@ class AuthService:
             user.identities.append(Identity(provider=provider, provider_id=provider_id))
             
         # Issue JWT
-        return self.jwt.sign({"sub": user.id, "roles": user.roles})
+        return str(self.jwt.sign({"sub": user.id, "roles": user.roles}))

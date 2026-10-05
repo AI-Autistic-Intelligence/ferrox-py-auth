@@ -1,14 +1,14 @@
 from ferrox_py.core.provider import injectable
 from ferrox_py.core.errors import FerroxError
 from .auth_service import AuthService
-from typing import Dict
+from typing import Dict, Any
 
 @injectable()
 class GdprService:
     def __init__(self, auth_service: AuthService):
         self.auth = auth_service
 
-    async def export_data(self, user_id: str) -> Dict:
+    async def export_data(self, user_id: str) -> Dict[str, Any]:
         """Returns all PII (Personally Identifiable Information) for GDPR export."""
         user = self.auth._users_db.get(user_id)
         if not user:
